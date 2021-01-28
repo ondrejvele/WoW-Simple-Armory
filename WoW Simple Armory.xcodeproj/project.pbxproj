@@ -15,6 +15,9 @@
 		9746153625B58E4C00C3B8D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9746153425B58E4C00C3B8D9 /* LaunchScreen.storyboard */; };
 		9746154125B58E4C00C3B8D9 /* WoW_Simple_ArmoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746154025B58E4C00C3B8D9 /* WoW_Simple_ArmoryTests.swift */; };
 		9746154C25B58E4C00C3B8D9 /* WoW_Simple_ArmoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746154B25B58E4C00C3B8D9 /* WoW_Simple_ArmoryUITests.swift */; };
+		9746156925B59F0500C3B8D9 /* ArmoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746156825B59F0500C3B8D9 /* ArmoryManager.swift */; };
+		9746157B25BECDAA00C3B8D9 /* AmoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746157A25BECDA900C3B8D9 /* AmoryData.swift */; };
+		9746159025C188F700C3B8D9 /* ArmoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746158F25C188F700C3B8D9 /* ArmoryModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		9746154725B58E4C00C3B8D9 /* WoW Simple ArmoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WoW Simple ArmoryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9746154B25B58E4C00C3B8D9 /* WoW_Simple_ArmoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoW_Simple_ArmoryUITests.swift; sourceTree = "<group>"; };
 		9746154D25B58E4C00C3B8D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9746156825B59F0500C3B8D9 /* ArmoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmoryManager.swift; sourceTree = "<group>"; };
+		9746157A25BECDA900C3B8D9 /* AmoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmoryData.swift; sourceTree = "<group>"; };
+		9746158F25C188F700C3B8D9 /* ArmoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmoryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +107,9 @@
 			children = (
 				9746152925B58E4900C3B8D9 /* AppDelegate.swift */,
 				9746152B25B58E4900C3B8D9 /* SceneDelegate.swift */,
-				9746152D25B58E4900C3B8D9 /* ViewController.swift */,
-				9746152F25B58E4900C3B8D9 /* Main.storyboard */,
+				9746156125B58EB400C3B8D9 /* Model */,
+				9746156025B58EA300C3B8D9 /* View */,
+				9746155C25B58E7B00C3B8D9 /* Controller */,
 				9746153225B58E4C00C3B8D9 /* Assets.xcassets */,
 				9746153425B58E4C00C3B8D9 /* LaunchScreen.storyboard */,
 				9746153725B58E4C00C3B8D9 /* Info.plist */,
@@ -126,6 +133,32 @@
 				9746154D25B58E4C00C3B8D9 /* Info.plist */,
 			);
 			path = "WoW Simple ArmoryUITests";
+			sourceTree = "<group>";
+		};
+		9746155C25B58E7B00C3B8D9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9746152D25B58E4900C3B8D9 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9746156025B58EA300C3B8D9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9746152F25B58E4900C3B8D9 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9746156125B58EB400C3B8D9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9746156825B59F0500C3B8D9 /* ArmoryManager.swift */,
+				9746157A25BECDA900C3B8D9 /* AmoryData.swift */,
+				9746158F25C188F700C3B8D9 /* ArmoryModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +293,10 @@
 			files = (
 				9746152E25B58E4900C3B8D9 /* ViewController.swift in Sources */,
 				9746152A25B58E4900C3B8D9 /* AppDelegate.swift in Sources */,
+				9746157B25BECDAA00C3B8D9 /* AmoryData.swift in Sources */,
+				9746159025C188F700C3B8D9 /* ArmoryModel.swift in Sources */,
 				9746152C25B58E4900C3B8D9 /* SceneDelegate.swift in Sources */,
+				9746156925B59F0500C3B8D9 /* ArmoryManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
