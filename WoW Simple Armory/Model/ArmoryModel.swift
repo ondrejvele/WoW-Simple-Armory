@@ -11,4 +11,5 @@ struct armoryModel {
     let raceName : String
     let className :  String
     let specName : String
+    var factionName: String
 }

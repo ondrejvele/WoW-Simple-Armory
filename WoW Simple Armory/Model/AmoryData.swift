@@ -11,4 +11,5 @@ struct ArmoryData: Codable {
     let race: String
     let `class`: String
     let active_spec_name: String
+    let faction: String
 }

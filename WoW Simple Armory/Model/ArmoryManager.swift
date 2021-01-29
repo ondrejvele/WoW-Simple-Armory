@@ -58,12 +58,14 @@ struct ArmoryManager {
             print(decodedData.race)
             print(decodedData.class)
             print(decodedData.active_spec_name)
+            print(decodedData.faction)
             
             let raceName = decodedData.race
             let className = decodedData.class
             let specName = decodedData.active_spec_name
+            let factionName = decodedData.faction
             
-            let armory = armoryModel(raceName: raceName, className: className, specName: specName)
+            let armory = armoryModel(raceName: raceName, className: className, specName: specName, factionName: factionName)
             return armory
         } catch {
             print(error)

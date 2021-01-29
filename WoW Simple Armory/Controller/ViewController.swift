@@ -39,16 +39,10 @@ class ViewController: UIViewController {
         regionPicker.delegate = self
         armoryManager.delegate = self
         
+        realmInput.delegate = self
+        nameInput.delegate = self
+        
         selected = armoryManager.regions[0]
-    }
-    
-    @IBAction func searchPressed(_ sender: UIButton) {
-        let realmInputValue = realmInput.text!
-        let nameInputValue = nameInput.text!
-        let selectedRegion = selected
-        
-        armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
-        
     }
     
 }
@@ -78,16 +72,42 @@ extension ViewController : UIPickerViewDataSource, UIPickerViewDelegate {
 
 extension ViewController: ArmoryManagerDelegate {
     func didUpdateArmory(_ armoryManager: ArmoryManager, armory: armoryModel) {
-        DispatchQueue.main.async {
-            self.raceResult.text = armory.raceName
-            self.classResult.text = armory.className
-            self.specResult.text = armory.specName
+        DispatchQueue.main.async {[self] in
+            raceResult.text = armory.raceName
+            classResult.text = armory.className
+            specResult.text = armory.specName
+            factionImage.image = UIImage(named: armory.factionName)
         }
     }
     
     func didFailWithError(error: Error) {
         print(error)
     }
-    
-    
 }
+
+//MARK: - UITextFieldDelegate
+
+extension ViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        let realmInputValue = realmInput.text!
+        let nameInputValue = nameInput.text!
+        let selectedRegion = selected
+        
+        armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
+        return true
+    }
+    
+    @IBAction func searchPressed(_ sender: UIButton) {
+        let realmInputValue = realmInput.text!
+        let nameInputValue = nameInput.text!
+        let selectedRegion = selected
+        
+        armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
+        
+        realmInput.endEditing(true)
+        nameInput.endEditing(true)
+        
+    }
+}
+
