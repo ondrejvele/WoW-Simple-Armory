@@ -7,17 +7,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class InputViewController: UIViewController {
     
     var selected = ""
+    
+    var classResult = ""
+    var raceResult = ""
+    var specResult = ""
+    var factionResult: UIImage?
 
     @IBOutlet weak var realmInput: UITextField!
     @IBOutlet weak var nameInput: UITextField!
     @IBOutlet weak var regionPicker: UIPickerView!
-    
-    @IBOutlet weak var raceResult: UILabel!
-    @IBOutlet weak var classResult: UILabel!
-    @IBOutlet weak var specResult: UILabel!
     
     @IBOutlet weak var factionImage: UIImageView!
     
@@ -28,12 +29,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         //for test purpose
-        realmInput.text = ""
-        nameInput.text = ""
-        
-        raceResult.text = ""
-        classResult.text = ""
-        specResult.text = ""
+        realmInput.text = "Drakthul"
+        nameInput.text = "Skymonk"
+
         
         regionPicker.dataSource = self
         regionPicker.delegate = self
@@ -43,13 +41,36 @@ class ViewController: UIViewController {
         nameInput.delegate = self
         
         selected = armoryManager.regions[0]
+        
     }
     
+    @IBAction func searchPressed(_ sender: UIButton) {
+        let realmInputValue = realmInput.text!
+        let nameInputValue = nameInput.text!
+        let selectedRegion = selected
+        
+        armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
+        
+        realmInput.endEditing(true)
+        nameInput.endEditing(true)
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowResult" {
+            let destinationVC = segue.destination as! ResultViewController
+            destinationVC.charClass = classResult
+            destinationVC.charRace = raceResult
+            destinationVC.charSpec = specResult
+            destinationVC.charFaction = factionResult
+        }
+    }
 }
 
 //MARK: - Picker View
 
-extension ViewController : UIPickerViewDataSource, UIPickerViewDelegate {
+extension InputViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -70,13 +91,14 @@ extension ViewController : UIPickerViewDataSource, UIPickerViewDelegate {
 
 //MARK: - ArmoryManagerDelegate
 
-extension ViewController: ArmoryManagerDelegate {
+extension InputViewController: ArmoryManagerDelegate {
     func didUpdateArmory(_ armoryManager: ArmoryManager, armory: armoryModel) {
         DispatchQueue.main.async {[self] in
-            raceResult.text = armory.raceName
-            classResult.text = armory.className
-            specResult.text = armory.specName
-            factionImage.image = UIImage(named: armory.factionName)
+            classResult = armory.className
+            raceResult = armory.raceName
+            specResult = armory.specName
+            factionResult = UIImage(named: armory.factionName)
+            self.performSegue(withIdentifier: "ShowResult", sender: self)
         }
     }
     
@@ -87,7 +109,7 @@ extension ViewController: ArmoryManagerDelegate {
 
 //MARK: - UITextFieldDelegate
 
-extension ViewController : UITextFieldDelegate {
+extension InputViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         let realmInputValue = realmInput.text!
@@ -96,18 +118,6 @@ extension ViewController : UITextFieldDelegate {
         
         armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
         return true
-    }
-    
-    @IBAction func searchPressed(_ sender: UIButton) {
-        let realmInputValue = realmInput.text!
-        let nameInputValue = nameInput.text!
-        let selectedRegion = selected
-        
-        armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
-        
-        realmInput.endEditing(true)
-        nameInput.endEditing(true)
-        
     }
 }
 
