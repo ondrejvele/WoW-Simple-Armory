@@ -29,8 +29,8 @@ class InputViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         //for test purpose
-        realmInput.text = "Drakthul"
-        nameInput.text = "Skymonk"
+        //realmInput.text = "Drakthul"
+        //nameInput.text = "Skymonk"
 
         
         regionPicker.dataSource = self
