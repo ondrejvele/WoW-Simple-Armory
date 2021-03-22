@@ -8,7 +8,6 @@
 import Foundation
 
 protocol ArmoryManagerDelegate {
-    //func didUpdateArmory(characterClass: String, characterRace: String, characterTalentSpec: String)
     func didUpdateArmory (_ armoryManager: ArmoryManager, armory: armoryModel)
     func didFailWithError(error: Error)
 }
@@ -26,6 +25,8 @@ struct ArmoryManager {
         print(urlString)
     }
     
+    //MARK: - Perform Request
+    
     func performRequest(urlString: String) {
         
         //1. create URL
@@ -39,8 +40,6 @@ struct ArmoryManager {
                     return
                 }
                 if let safeData = data {
-                    //let dataString = String(data: safeData, encoding: .utf8)
-                    //print(dataString!)
                     if let armory = parseJSON(armoryData: safeData) {
                         delegate?.didUpdateArmory(self, armory: armory)
                     }
@@ -51,21 +50,21 @@ struct ArmoryManager {
         }
     }
     
+    
+    //MARK: - parseJSON
+    
     func parseJSON(armoryData: Data) -> armoryModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(ArmoryData.self, from: armoryData)
-            print(decodedData.race)
-            print(decodedData.class)
-            print(decodedData.active_spec_name)
-            print(decodedData.faction)
+            print("Decoded data: Race: \(decodedData.race), Class: \(decodedData.class), Spec: \(decodedData.active_spec_name), Faction: \(decodedData.faction)")
             
-            let raceName = decodedData.race
-            let className = decodedData.class
-            let specName = decodedData.active_spec_name
-            let factionName = decodedData.faction
-            
-            let armory = armoryModel(raceName: raceName, className: className, specName: specName, factionName: factionName)
+            let armory = armoryModel(
+                raceName: decodedData.race,
+                className: decodedData.class,
+                specName: decodedData.active_spec_name,
+                factionName: decodedData.faction
+            )
             return armory
         } catch {
             print(error)

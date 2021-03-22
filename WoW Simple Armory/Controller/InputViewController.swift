@@ -9,7 +9,7 @@ import UIKit
 
 class InputViewController: UIViewController {
     
-    var selected = ""
+    var selectedRegion = ""
     
     var classResult = ""
     var raceResult = ""
@@ -40,22 +40,23 @@ class InputViewController: UIViewController {
         realmInput.delegate = self
         nameInput.delegate = self
         
-        selected = armoryManager.regions[0]
+        selectedRegion = armoryManager.regions[0]
         
     }
     
+    //MARK: - SearchPressed
+    
     @IBAction func searchPressed(_ sender: UIButton) {
-        let realmInputValue = realmInput.text!
-        let nameInputValue = nameInput.text!
-        let selectedRegion = selected
         
-        armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
+        armoryManager.fetchArmory(region: selectedRegion, realm: realmInput.text!, name: nameInput.text!)
         
         realmInput.endEditing(true)
         nameInput.endEditing(true)
         
         
     }
+    
+    //MARK: - Prepare for Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowResult" {
@@ -84,7 +85,7 @@ extension InputViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selected = armoryManager.regions[row]
+        selectedRegion = armoryManager.regions[row]
     }
     
 }
@@ -98,7 +99,7 @@ extension InputViewController: ArmoryManagerDelegate {
             raceResult = armory.raceName
             specResult = armory.specName
             factionResult = UIImage(named: armory.factionName)
-            self.performSegue(withIdentifier: "ShowResult", sender: self)
+            performSegue(withIdentifier: "ShowResult", sender: self)
         }
     }
     
@@ -112,11 +113,8 @@ extension InputViewController: ArmoryManagerDelegate {
 extension InputViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        let realmInputValue = realmInput.text!
-        let nameInputValue = nameInput.text!
-        let selectedRegion = selected
         
-        armoryManager.fetchArmory(region: selectedRegion, realm: realmInputValue, name: nameInputValue)
+        armoryManager.fetchArmory(region: selectedRegion, realm: realmInput.text!, name: nameInput.text!)
         return true
     }
 }
